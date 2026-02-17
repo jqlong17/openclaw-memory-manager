@@ -138,6 +138,8 @@ cloudflared tunnel --config ~/.cloudflared/config-memory-manager.yml run
 |------|------|--------|
 | `OCMM_PORT` | 服务端口 | `3002` |
 | `OCMM_HOST` | 绑定地址 | `0.0.0.0` |
+| `OCMM_WORKSPACE_PATH` | OpenClaw 工作区路径 | `~/.openclaw/workspace` |
+| `OCMM_SESSIONS_PATH` | 对话日志路径 | `~/.openclaw/agents/main/sessions` |
 
 ### 示例
 
@@ -147,6 +149,9 @@ OCMM_PORT=8080 ocmm start
 
 # 仅本地访问
 OCMM_HOST=127.0.0.1 ocmm start
+
+# 自定义工作区路径
+OCMM_WORKSPACE_PATH=/custom/path ocmm start
 ```
 
 ---
