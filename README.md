@@ -95,6 +95,41 @@ npm start
 
 ---
 
+## 🌐 公网访问（可选）
+
+如果你想在手机流量或其他 WiFi 下访问，可以使用 Cloudflare Tunnel：
+
+```bash
+# 1. 安装 cloudflared
+brew install cloudflared
+
+# 2. 登录 Cloudflare
+cloudflared tunnel login
+
+# 3. 创建隧道
+cloudflared tunnel create openclaw-memory-manager
+
+# 4. 配置 DNS（将 mm.your-domain.com 替换为你的域名）
+cloudflared tunnel route dns openclaw-memory-manager mm.your-domain.com
+
+# 5. 创建配置文件 ~/.cloudflared/config-memory-manager.yml
+tunnel: <你的隧道ID>
+credentials-file: ~/.cloudflared/<隧道ID>.json
+ingress:
+  - hostname: mm.your-domain.com
+    service: http://localhost:3002
+  - service: http_status:404
+
+# 6. 启动隧道
+cloudflared tunnel --config ~/.cloudflared/config-memory-manager.yml run
+```
+
+然后手机访问 `https://mm.your-domain.com`
+
+⚠️ **安全提示**：公网访问时建议添加密码保护，避免他人访问你的记忆文件。
+
+---
+
 ## ⚙️ 配置
 
 ### 环境变量
