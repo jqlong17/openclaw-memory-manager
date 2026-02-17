@@ -2,7 +2,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import fs from 'fs'
 import path from 'path'
 
-const WORKSPACE_PATH = '/Users/ruska/.openclaw/workspace'
+// 从环境变量获取路径，默认使用当前工作目录
+const WORKSPACE_PATH = process.env.OCMM_WORKSPACE_PATH || process.env.HOME + '/.openclaw/workspace'
 
 // GET /api/memories - 列出所有记忆文件
 // GET /api/memories?path=xxx - 读取单个文件

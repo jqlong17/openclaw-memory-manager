@@ -54,7 +54,7 @@ export default function SettingsPage() {
               
               <div className="bg-gray-50 rounded-lg p-3">
                 <code className="text-sm text-gray-700 break-all">
-                  /Users/ruska/.openclaw/workspace
+                  {process.env.OCMM_WORKSPACE_PATH || '~/.openclaw/workspace'}
                 </code>
               </div>
             </div>

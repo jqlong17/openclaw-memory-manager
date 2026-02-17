@@ -2,7 +2,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import fs from 'fs'
 import path from 'path'
 
-const SESSIONS_PATH = '/Users/ruska/.openclaw/agents/main/sessions'
+// 从环境变量获取路径，默认使用当前工作目录
+const SESSIONS_PATH = process.env.OCMM_SESSIONS_PATH || process.env.HOME + '/.openclaw/agents/main/sessions'
 
 interface SessionInfo {
   id: string
