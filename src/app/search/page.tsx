@@ -2,9 +2,13 @@
 
 import { useState } from 'react'
 
+type SearchResult =
+  | { type: 'memory'; file: string; path: string; content: string }
+  | { type: 'chat'; sessionId: string; file: string; path: string; content: string }
+
 export default function SearchPage() {
   const [query, setQuery] = useState('')
-  const [results, setResults] = useState<any[]>([])
+  const [results, setResults] = useState<SearchResult[]>([])
   const [searching, setSearching] = useState(false)
   const [searched, setSearched] = useState(false)
 
@@ -33,8 +37,8 @@ export default function SearchPage() {
       {/* 左侧搜索区 */}
       <div className="w-full sm:w-80 flex-shrink-0 border-r border-gray-200 bg-gray-50">
         <div className="p-4 sm:p-6">
-          <h2 className="text-xl font-bold text-gray-800 mb-2">🔍 搜索记忆</h2>
-          <p className="text-sm text-gray-500 mb-6">在所有记忆文件中搜索关键词</p>
+          <h2 className="text-xl font-bold text-gray-800 mb-2">🔍 搜索</h2>
+          <p className="text-sm text-gray-500 mb-6">在记忆文件与对话日志中搜索关键词</p>
 
           <div className="space-y-4">
             <div className="relative">
@@ -98,27 +102,41 @@ export default function SearchPage() {
           )}
 
           <div className="space-y-3">
-            {results.map((result, i) => (
-              <a
-                key={i}
-                href={`/edit?file=${encodeURIComponent(result.path)}`}
-                className="block p-4 bg-white border border-gray-200 rounded-xl 
-                           hover:border-blue-300 hover:shadow-md transition-all"
-              >
-                <div className="flex items-start gap-3">
-                  <span className="text-2xl">📄</span>
-                  <div className="flex-1 min-w-0">
-                    <div className="font-semibold text-gray-800 mb-1 truncate">
-                      {result.file}
+            {results.map((result, i) => {
+              const isChat = result.type === 'chat'
+              const href = isChat
+                ? `/chat-logs?session=${encodeURIComponent(result.sessionId)}`
+                : `/edit?file=${encodeURIComponent(result.path)}`
+              const icon = isChat ? '💬' : '📄'
+              const label = isChat ? '对话' : '记忆'
+
+              return (
+                <a
+                  key={i}
+                  href={href}
+                  className="block p-4 bg-white border border-gray-200 rounded-xl 
+                             hover:border-blue-300 hover:shadow-md transition-all"
+                >
+                  <div className="flex items-start gap-3">
+                    <span className="text-2xl">{icon}</span>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-500">
+                          {label}
+                        </span>
+                        <span className="font-semibold text-gray-800 truncate">
+                          {isChat ? `会话 ${result.sessionId}` : result.file}
+                        </span>
+                      </div>
+                      <p className="text-sm text-gray-600 line-clamp-3">
+                        {result.content}
+                      </p>
                     </div>
-                    <p className="text-sm text-gray-600 line-clamp-3">
-                      {result.content}
-                    </p>
+                    <span className="text-gray-400 flex-shrink-0">›</span>
                   </div>
-                  <span className="text-gray-400 flex-shrink-0">›</span>
-                </div>
-              </a>
-            ))}
+                </a>
+              )
+            })}
           </div>
 
           {/* 空状态 */}

@@ -1,6 +1,7 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
+import { useSearchParams } from 'next/navigation'
 
 interface Session {
   id: string
@@ -20,12 +21,16 @@ interface Message {
   }
 }
 
-export default function ChatLogsPage() {
+function ChatLogsContent() {
+  const searchParams = useSearchParams()
   const [sessions, setSessions] = useState<Session[]>([])
   const [selectedSession, setSelectedSession] = useState<string | null>(null)
   const [messages, setMessages] = useState<Message[]>([])
   const [loading, setLoading] = useState(true)
   const [showDetail, setShowDetail] = useState(false)
+
+  // 从 URL ?session= 恢复选中的会话（例如从搜索页跳转过来）
+  const sessionFromUrl = searchParams.get('session')
 
   useEffect(() => {
     fetch('/api/chat-logs')
@@ -35,6 +40,16 @@ export default function ChatLogsPage() {
         setLoading(false)
       })
   }, [])
+
+  useEffect(() => {
+    if (sessionFromUrl && sessions.length > 0 && !selectedSession) {
+      const exists = sessions.some(s => s.id === sessionFromUrl)
+      if (exists) {
+        setSelectedSession(sessionFromUrl)
+        setShowDetail(true)
+      }
+    }
+  }, [sessionFromUrl, sessions, selectedSession])
 
   useEffect(() => {
     if (selectedSession) {
@@ -204,5 +219,17 @@ export default function ChatLogsPage() {
         )}
       </div>
     </div>
+  )
+}
+
+export default function ChatLogsPage() {
+  return (
+    <Suspense fallback={
+      <div className="flex flex-col items-center justify-center h-full">
+        <div className="animate-pulse text-gray-500">加载中...</div>
+      </div>
+    }>
+      <ChatLogsContent />
+    </Suspense>
   )
 }
