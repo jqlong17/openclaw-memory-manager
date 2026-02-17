@@ -34,6 +34,7 @@ export default function RootLayout({
             
             <nav className="hidden sm:flex items-center gap-6">
               <a href="/" className="text-sm text-gray-600 hover:text-blue-500">首页</a>
+              <a href="/chat-logs" className="text-sm text-gray-600 hover:text-blue-500">对话日志</a>
               <a href="/search" className="text-sm text-gray-600 hover:text-blue-500">搜索</a>
               <a href="/settings" className="text-sm text-gray-600 hover:text-blue-500">设置</a>
             </nav>
@@ -51,6 +52,10 @@ export default function RootLayout({
             <a href="/" className="flex flex-col items-center justify-center w-full h-full text-gray-600">
               <span className="text-xl">📋</span>
               <span className="text-xs">记忆</span>
+            </a>
+            <a href="/chat-logs" className="flex flex-col items-center justify-center w-full h-full text-gray-600">
+              <span className="text-xl">💬</span>
+              <span className="text-xs">对话</span>
             </a>
             <a href="/search" className="flex flex-col items-center justify-center w-full h-full text-gray-600">
               <span className="text-xl">🔍</span>
