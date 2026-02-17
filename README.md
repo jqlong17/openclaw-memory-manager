@@ -130,50 +130,6 @@ cloudflared tunnel --config ~/.cloudflared/config-memory-manager.yml run
 
 ---
 
-## 📱 社交媒体爬取（可选）
-
-本项目集成了 [MediaCrawler](https://github.com/NanmiCoder/MediaCrawler) 作为子模块，支持爬取以下平台：
-
-| 平台 | 支持 | 说明 |
-|------|------|------|
-| 小红书 | ✅ | 笔记、评论 |
-| 抖音 | ✅ | 视频、评论 |
-| 快手 | ✅ | 视频、评论 |
-| Bilibili | ✅ | 视频、弹幕 |
-| 微博 | ✅ | 帖子、评论 |
-| 百度贴吧 | ✅ | 帖子、回复 |
-| 知乎 | ✅ | 回答、评论 |
-
-### 初始化子模块
-
-```bash
-# 克隆时包含子模块
-git clone --recursive https://github.com/jqlong17/openclaw-memory-manager.git
-
-# 或克隆后初始化
-git submodule update --init --recursive
-```
-
-### 使用 MediaCrawler
-
-```bash
-cd third_party/MediaCrawler
-
-# 安装依赖
-pip install -r requirements.txt
-
-# 配置环境变量
-cp .env.example .env
-# 编辑 .env 文件，配置你的账号信息
-
-# 爬取小红书
-python main.py --platform xhs --lt qrcode --type search
-```
-
-⚠️ **注意**：使用爬虫功能请遵守相关平台的使用条款和法律法规。
-
----
-
 ## ⚙️ 配置
 
 ### 环境变量
