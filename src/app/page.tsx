@@ -65,12 +65,16 @@ function HomeContent() {
     setSaving(false)
   }
 
-  const getIcon = (type: string) => {
-    switch (type) {
-      case 'memory': return '🧠'
-      case 'daily': return '📝'
-      case 'config': return '⚙️'
-      default: return '📄'
+  const getIcon = (name: string) => {
+    switch (name) {
+      case 'MEMORY.md': return '📚'
+      case 'SOUL.md': return '🧠'
+      case 'USER.md': return '👤'
+      case 'IDENTITY.md': return '🪞'
+      case 'HEARTBEAT.md': return '💓'
+      case 'AGENTS.md': return '🤖'
+      case 'TOOLS.md': return '🛠️'
+      default: return name.includes('memory/') ? '📅' : '📄'
     }
   }
 
@@ -170,7 +174,7 @@ function FileList({
   files: MemoryFile[]
   selectedFile?: string | null
   onSelect: (path: string) => void
-  getIcon: (type: string) => string
+  getIcon: (name: string) => string
   getDesc: (name: string) => string
   compact?: boolean
 }) {
@@ -187,7 +191,7 @@ function FileList({
           }`}
         >
           <div className="flex items-center gap-3">
-            <span className="text-xl">{getIcon(file.type)}</span>
+            <span className="text-xl">{getIcon(file.name)}</span>
             <div className="flex-1 min-w-0">
               <div className={`font-medium truncate ${
                 selectedFile === file.path ? 'text-white' : 'text-gray-800'
