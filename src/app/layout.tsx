@@ -24,19 +24,18 @@ export default function RootLayout({
       <body className="min-h-screen bg-gray-50">
         {/* 顶部导航 */}
         <header className="bg-white shadow-sm sticky top-0 z-50 h-14 sm:h-16 flex items-center">
-          <div className="max-w-full mx-auto px-4 w-full flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <span className="text-2xl">🧠</span>
-              <h1 className="text-lg sm:text-xl font-bold text-gray-800">
+          <div className="w-full h-full mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+            <div className="flex items-center gap-2 min-w-0">
+              <span className="text-2xl flex-shrink-0" aria-hidden>🧠</span>
+              <h1 className="text-lg sm:text-xl font-bold text-gray-800 truncate">
                 Memory Manager
               </h1>
             </div>
-            
-            <nav className="hidden sm:flex items-center gap-6">
-              <a href="/" className="text-sm text-gray-600 hover:text-blue-500">首页</a>
-              <a href="/chat-logs" className="text-sm text-gray-600 hover:text-blue-500">对话日志</a>
-              <a href="/search" className="text-sm text-gray-600 hover:text-blue-500">搜索</a>
-              <a href="/settings" className="text-sm text-gray-600 hover:text-blue-500">设置</a>
+            <nav className="hidden sm:flex items-center gap-6 flex-shrink-0 sm:ml-4">
+              <a href="/" className="text-sm text-gray-600 hover:text-blue-500 whitespace-nowrap">首页</a>
+              <a href="/chat-logs" className="text-sm text-gray-600 hover:text-blue-500 whitespace-nowrap">对话日志</a>
+              <a href="/search" className="text-sm text-gray-600 hover:text-blue-500 whitespace-nowrap">搜索</a>
+              <a href="/settings" className="text-sm text-gray-600 hover:text-blue-500 whitespace-nowrap">设置</a>
             </nav>
           </div>
         </header>

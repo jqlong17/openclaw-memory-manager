@@ -9,6 +9,19 @@
 
 ---
 
+## 📋 目录
+
+- [功能特性](#-功能特性)
+- [快速开始](#-快速开始)
+- [界面导航](#-界面导航)
+- [使用指南](#-使用指南)
+- [公网访问](#-公网访问)
+- [配置说明](#-配置说明)
+- [常见问题](#-常见问题)
+- [加入社区](#-加入社区)
+
+---
+
 ## ✨ 功能特性
 
 | 功能 | 说明 |
@@ -23,15 +36,59 @@
 
 ---
 
+## 🔒 本地配置（隐私保护）
+
+为了保护你的域名等敏感信息，建议创建本地配置文件：
+
+### 1. 创建 `.env.local` 文件
+
+```bash
+# 在项目根目录创建 .env.local 文件
+touch .env.local
+```
+
+添加以下内容：
+
+```bash
+# 你的域名
+DOMAIN=your-domain.com
+
+# Cloudflare Tunnel ID（可选）
+TUNNEL_ID=your-tunnel-id
+
+# 服务端口（可选，默认 3002）
+PORT=3002
+```
+
+⚠️ **注意**：`.env.local` 文件不会被上传到 GitHub（已在 .gitignore 中配置）。
+
+### 2. 使用本地启动脚本
+
+```bash
+# 启动（自动读取 .env.local 配置）
+./start-local.sh
+
+# 停止
+./stop-local.sh
+```
+
+此脚本会：
+- 自动读取 `.env.local` 中的配置
+- 启动本地服务
+- 后台启动 Cloudflare Tunnel
+- 自动检测隧道连接状态
+
+---
+
 ## 🚀 快速开始
 
-### 一键安装（推荐）
+### 方式一：一键安装（推荐）
 
 ```bash
 curl -sSL https://raw.githubusercontent.com/jqlong17/openclaw-memory-manager/main/install.sh | bash
 ```
 
-安装完成后：
+安装完成后，使用以下命令：
 
 ```bash
 ocmm start    # 启动服务（自动打开浏览器）
@@ -40,7 +97,7 @@ ocmm status   # 查看状态
 ocmm update   # 更新到最新版
 ```
 
-### 手动安装
+### 方式二：手动安装
 
 ```bash
 # 1. 克隆仓库
@@ -57,80 +114,146 @@ npm run build
 npm start
 ```
 
+### 方式三：本地开发
+
+```bash
+npm install
+npm run dev    # 开发模式，支持热重载
+```
+
+---
+
+## 🧭 界面导航
+
+启动后，界面底部有 **4 个 Tab**：
+
+| Tab | 图标 | 功能说明 |
+|-----|------|---------|
+| **记忆** | 📚 | 查看和编辑所有记忆文件 |
+| **对话** | 💬 | 浏览历史对话记录 |
+| **搜索** | 🔍 | 全文搜索记忆内容 |
+| **设置** | ⚙️ | 配置选项和关于信息 |
+
+### 支持的文件类型
+
+| 文件 | 图标 | 说明 |
+|------|------|------|
+| `MEMORY.md` | 📚 | 长期记忆（重要经验、知识） |
+| `SOUL.md` | 🧠 | AI 灵魂/个性设定 |
+| `USER.md` | 👤 | 用户信息 |
+| `IDENTITY.md` | 🪞 | AI 身份设定 |
+| `HEARTBEAT.md` | 💓 | 心跳任务配置 |
+| `AGENTS.md` | 🤖 | Agent 配置 |
+| `TOOLS.md` | 🛠️ | 工具配置 |
+| `memory/YYYY-MM-DD.md` | 📅 | 每日记忆日志 |
+
 ---
 
 ## 📖 使用指南
 
-启动后访问：
-
-- **本地访问**：`http://localhost:3002`
-- **局域网访问**：`http://你的IP:3002`（手机同WiFi下可用）
-
-### 支持的文件
-
-| 文件 | 图标 | 说明 |
-|------|------|------|
-| `MEMORY.md` | 📚 | 长期记忆 |
-| `SOUL.md` | 🧠 | AI 灵魂/个性 |
-| `USER.md` | 👤 | 用户信息 |
-| `IDENTITY.md` | 🪞 | AI 身份 |
-| `HEARTBEAT.md` | 💓 | 心跳任务 |
-| `AGENTS.md` | 🤖 | Agent 配置 |
-| `TOOLS.md` | 🛠️ | 工具配置 |
-| `memory/YYYY-MM-DD.md` | 📅 | 每日记忆 |
-
----
-
-## 🖼️ 界面预览
-
-### 移动端
-- 底部导航栏，快速切换功能
-- 卡片式布局，清晰易用
-- 触摸友好的按钮和输入框
-
-### 桌面端
-- 左侧文件列表，右侧编辑区
-- 响应式布局，自适应窗口大小
-- 快捷键支持
-
----
-
-## 🌐 公网访问（可选）
-
-如果你想在手机流量或其他 WiFi 下访问，可以使用 Cloudflare Tunnel：
+### 第一步：启动服务
 
 ```bash
-# 1. 安装 cloudflared
+ocmm start
+```
+
+服务默认运行在 `http://localhost:3002`
+
+### 第二步：访问界面
+
+- **电脑浏览器**：打开 http://localhost:3002
+- **手机同 WiFi**：用浏览器访问 `http://<电脑IP>:3002`
+
+### 第三步：浏览记忆文件
+
+1. 点击底部 **"记忆"** Tab
+2. 查看文件列表
+3. 点击任意文件进入编辑
+
+### 第四步：编辑记忆
+
+1. 在编辑页面修改内容
+2. 内容会自动保存（无需手动点击）
+3. 返回列表查看其他文件
+
+### 第五步：搜索内容
+
+1. 点击底部 **"搜索"** Tab
+2. 输入关键词
+3. 查看所有匹配的记忆内容
+
+### 第六步：查看对话历史
+
+1. 点击底部 **"对话"** Tab
+2. 浏览历史对话记录
+3. 点击对话查看详情
+
+---
+
+## 🌐 公网访问
+
+如果你想在手机流量或其他 WiFi 下也能访问，可以使用 Cloudflare Tunnel：
+
+### 1. 安装 cloudflared
+
+```bash
 brew install cloudflared
+```
 
-# 2. 登录 Cloudflare
+### 2. 登录 Cloudflare
+
+```bash
 cloudflared tunnel login
+```
 
-# 3. 创建隧道
+### 3. 创建隧道
+
+```bash
 cloudflared tunnel create openclaw-memory-manager
+```
 
-# 4. 配置 DNS（将 mm.your-domain.com 替换为你的域名）
-cloudflared tunnel route dns openclaw-memory-manager mm.your-domain.com
+### 4. 配置 DNS
 
-# 5. 创建配置文件 ~/.cloudflared/config-memory-manager.yml
+将 `your-domain.com` 替换为你自己的域名：
+
+```bash
+cloudflared tunnel route dns openclaw-memory-manager your-domain.com
+```
+
+### 5. 创建配置文件
+
+创建文件 `~/.cloudflared/config-memory-manager.yml`：
+
+```yaml
 tunnel: <你的隧道ID>
 credentials-file: ~/.cloudflared/<隧道ID>.json
 ingress:
-  - hostname: mm.your-domain.com
+  - hostname: your-domain.com
     service: http://localhost:3002
   - service: http_status:404
+```
 
-# 6. 启动隧道
+### 6. 启动隧道
+
+```bash
 cloudflared tunnel --config ~/.cloudflared/config-memory-manager.yml run
 ```
 
-然后手机访问 `https://mm.your-domain.com`
+### 7. 手机访问
+
+现在手机可以用流量访问：
+
+```
+https://your-domain.com
+```
+
+（将 `your-domain.com` 替换为你自己的域名）
 
 ⚠️ **安全提示**：公网访问时建议添加密码保护，避免他人访问你的记忆文件。
 
 ---
 
-## ⚙️ 配置
+## ⚙️ 配置说明
 
 ### 环境变量
 
@@ -141,18 +264,50 @@ cloudflared tunnel --config ~/.cloudflared/config-memory-manager.yml run
 | `OCMM_WORKSPACE_PATH` | OpenClaw 工作区路径 | `~/.openclaw/workspace` |
 | `OCMM_SESSIONS_PATH` | 对话日志路径 | `~/.openclaw/agents/main/sessions` |
 
-### 示例
+### 使用示例
 
 ```bash
 # 使用自定义端口
 OCMM_PORT=8080 ocmm start
 
-# 仅本地访问
+# 仅本地访问（更安全）
 OCMM_HOST=127.0.0.1 ocmm start
 
 # 自定义工作区路径
 OCMM_WORKSPACE_PATH=/custom/path ocmm start
 ```
+
+---
+
+## ❓ 常见问题
+
+### Q: 安装后命令找不到？
+
+A: 确保 `~/.local/bin` 在你的 PATH 中：
+
+```bash
+export PATH="$HOME/.local/bin:$PATH"
+```
+
+### Q: 端口被占用？
+
+A: 使用其他端口启动：
+
+```bash
+OCMM_PORT=3003 ocmm start
+```
+
+### Q: 手机无法访问？
+
+A: 检查电脑和手机是否在同一 WiFi，或配置 Cloudflare Tunnel 实现公网访问。
+
+### Q: 修改后没有保存？
+
+A: 编辑内容后会自动保存，返回列表前请等待 1-2 秒。
+
+### Q: 如何备份记忆文件？
+
+A: 记忆文件就是普通的 Markdown 文件，可以直接复制 `~/.openclaw/workspace/` 目录进行备份。
 
 ---
 
