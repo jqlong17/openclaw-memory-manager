@@ -32,9 +32,9 @@ export default function RootLayout({
               </h1>
             </div>
             <nav className="hidden sm:flex items-center gap-6 flex-shrink-0 sm:ml-4">
-              <a href="/" className="text-sm text-gray-600 hover:text-blue-500 whitespace-nowrap">首页</a>
-              <a href="/chat-logs" className="text-sm text-gray-600 hover:text-blue-500 whitespace-nowrap">对话日志</a>
-              <a href="/search" className="text-sm text-gray-600 hover:text-blue-500 whitespace-nowrap">搜索</a>
+              <a href="/" className="text-sm text-gray-600 hover:text-blue-500 whitespace-nowrap">记忆</a>
+              <a href="/daily" className="text-sm text-gray-600 hover:text-blue-500 whitespace-nowrap">每日</a>
+              <a href="/chat-logs" className="text-sm text-gray-600 hover:text-blue-500 whitespace-nowrap">对话</a>
               <a href="/settings" className="text-sm text-gray-600 hover:text-blue-500 whitespace-nowrap">设置</a>
             </nav>
           </div>
@@ -45,20 +45,20 @@ export default function RootLayout({
           {children}
         </main>
 
-        {/* 移动端底部导航 */}
+        {/* 移动端底部导航 - 3个Tab */}
         <nav className="sm:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 safe-area-bottom z-50">
           <div className="flex justify-around items-center h-16">
             <a href="/" className="flex flex-col items-center justify-center w-full h-full text-gray-600">
               <span className="text-xl">📋</span>
               <span className="text-xs">记忆</span>
             </a>
+            <a href="/daily" className="flex flex-col items-center justify-center w-full h-full text-gray-600">
+              <span className="text-xl">📅</span>
+              <span className="text-xs">每日</span>
+            </a>
             <a href="/chat-logs" className="flex flex-col items-center justify-center w-full h-full text-gray-600">
               <span className="text-xl">💬</span>
               <span className="text-xs">对话</span>
-            </a>
-            <a href="/search" className="flex flex-col items-center justify-center w-full h-full text-gray-600">
-              <span className="text-xl">🔍</span>
-              <span className="text-xs">搜索</span>
             </a>
             <a href="/settings" className="flex flex-col items-center justify-center w-full h-full text-gray-600">
               <span className="text-xl">⚙️</span>

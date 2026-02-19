@@ -6,7 +6,7 @@ import { useSearchParams } from 'next/navigation'
 interface MemoryFile {
   name: string
   path: string
-  type: 'memory' | 'daily' | 'config'
+  type: 'memory' | 'config'
   lastModified?: string
 }
 
@@ -74,17 +74,21 @@ function HomeContent() {
       case 'HEARTBEAT.md': return '💓'
       case 'AGENTS.md': return '🤖'
       case 'TOOLS.md': return '🛠️'
-      default: return name.includes('memory/') ? '📅' : '📄'
+      default: return '📄'
     }
   }
 
   const getDesc = (name: string) => {
-    if (name === 'MEMORY.md') return '长期记忆'
-    if (name === 'SOUL.md') return 'AI 灵魂'
-    if (name === 'USER.md') return '用户信息'
-    if (name === 'IDENTITY.md') return 'AI 身份'
-    if (name === 'HEARTBEAT.md') return '心跳任务'
-    return '每日记忆'
+    switch (name) {
+      case 'MEMORY.md': return '长期记忆'
+      case 'SOUL.md': return 'AI 灵魂'
+      case 'USER.md': return '用户信息'
+      case 'IDENTITY.md': return 'AI 身份'
+      case 'HEARTBEAT.md': return '心跳任务'
+      case 'AGENTS.md': return 'Agent 配置'
+      case 'TOOLS.md': return '工具配置'
+      default: return '配置文件'
+    }
   }
 
   const selectedFileName = selectedFile ? selectedFile.split('/').pop() || '' : ''
