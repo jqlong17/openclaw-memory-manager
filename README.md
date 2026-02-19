@@ -72,11 +72,41 @@ PORT=3002
 ./stop-local.sh
 ```
 
-此脚本会：
-- 自动读取 `.env.local` 中的配置
-- 启动本地服务
-- 后台启动 Cloudflare Tunnel
-- 自动检测隧道连接状态
+### 3. 使用 PM2 管理（推荐用于长期运行）
+
+PM2 可以确保服务稳定运行，自动重启崩溃的进程。
+
+```bash
+# 安装 PM2（如果尚未安装）
+npm install -g pm2
+
+# 启动服务
+./pm2-manager.sh start
+
+# 查看状态
+./pm2-manager.sh status
+
+# 查看日志
+./pm2-manager.sh logs
+
+# 重启服务
+./pm2-manager.sh restart
+
+# 停止服务
+./pm2-manager.sh stop
+```
+
+**PM2 优势：**
+- ✅ 进程崩溃自动重启
+- ✅ 开机自启动
+- ✅ 日志管理
+- ✅ 内存监控
+
+**设置开机自启：**
+```bash
+pm2 startup
+pm2 save
+```
 
 ---
 
